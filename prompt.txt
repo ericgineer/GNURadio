@@ -1,0 +1,44 @@
+I want to build a QAM modulator in GNU Radio that interfaces to a HackRF. The QAM modulator will transmit a preamble sequence for receiver synchronization and equalizer training. After the preamble the data transmission will begin.
+
+The QAM modulator needs to have a selector to select between different modulation types. The different modulation types are BPSK, QPSK, 16-QAM, and 64-QAM. Be sure to add a root raised cosine filter to reduce inter symbol interference.
+
+The bit rate is 1 Mbps for BPSK and the bit rate will scale up accordingly with each higher order modulation type.
+
+Make the preamble pattern 704 symbols long. 
+
++----------------+----------------+--------------------+
+| AGC / Detect   | Sync / CFO      | Equalizer Training |
++----------------+----------------+--------------------+
+| 64 symbols     | 128 symbols     | 512 symbols        |
++----------------+----------------+--------------------+
+
+After the preamble there will be 256 data symbols followed by 1 pilot symbol. 
+
+The pilot symbol is QPSK and will alternate through the following sequences
+
+P0 = +1+j1
+P1 = +1-j1
+P2 = -1-j1
+P3 = -1+j1
+P0 = +1+j1
+
+So the total frame will be the following:
+
++----------------+----------------+--------------------+-------------------------------------------------------------------+
+| AGC / Detect   | Sync / CFO     | Equalizer Training |                             Payload                               |
++----------------+----------------+--------------------+-------------------------------------------------------------------+
+| 64 symbols     | 128 symbols    | 512 symbols        |                          4096 symbols                             |
++----------------+----------------+--------------------+-------------------------------------------------------------------+
+
+The payload will consist of the following pattern:
+
+255 data symbols
+1 pilot symbol
+
+This repeats 16 times to fill all 4096 payload symbols.
+
+Then the frame will repeat
+
+For now fill the payload with a pseudorandom bit sequence that I can use to calculate BER on the receiver side eventually.
+
+Implement this transmitter using GNU Radio for the HackRF
