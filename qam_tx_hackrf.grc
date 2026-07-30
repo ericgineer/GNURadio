@@ -168,7 +168,7 @@ blocks:
     start: '0'
     step: '1'
     stop: '47'
-    value: '0'
+    value: '16'
     widget: counter_slider
   states:
     bus_sink: false
@@ -177,6 +177,56 @@ blocks:
     coordinate: [984, 48.0]
     rotation: 0
     state: true
+- name: blocks_float_to_char_0
+  id: blocks_float_to_char
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    scale: '1'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [432, 616.0]
+    rotation: 0
+    state: enabled
+- name: blocks_int_to_float_0
+  id: blocks_int_to_float
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    scale: '1'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [272, 616.0]
+    rotation: 0
+    state: enabled
+- name: blocks_pack_k_bits_bb_0
+  id: blocks_pack_k_bits_bb
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    k: '8'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [600, 616.0]
+    rotation: 0
+    state: enabled
 - name: blocks_vector_source_x_0_0
   id: blocks_vector_source_x
   parameters:
@@ -196,7 +246,7 @@ blocks:
     bus_structure: null
     coordinate: [72, 336.0]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: digital_constellation_modulator_0
   id: digital_constellation_modulator
   parameters:
@@ -259,6 +309,24 @@ blocks:
     coordinate: [792, 24.0]
     rotation: 0
     state: enabled
+- name: prbs_prbs_source_b_0
+  id: prbs_prbs_source_b
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    g_data_invert: '0'
+    g_intent_err_rate: '0'
+    g_pn_sel: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [80, 600.0]
+    rotation: 0
+    state: enabled
 - name: qtgui_sink_x_0
   id: qtgui_sink_x
   parameters:
@@ -310,11 +378,15 @@ blocks:
     state: true
 
 connections:
+- [blocks_float_to_char_0, '0', blocks_pack_k_bits_bb_0, '0']
+- [blocks_int_to_float_0, '0', blocks_float_to_char_0, '0']
+- [blocks_pack_k_bits_bb_0, '0', digital_constellation_modulator_0, '0']
 - [blocks_vector_source_x_0_0, '0', digital_constellation_modulator_0, '0']
 - [digital_constellation_modulator_0, '0', filter_fft_rrc_filter_0, '0']
 - [filter_fft_rrc_filter_0, '0', qtgui_sink_x_0, '0']
 - [filter_fft_rrc_filter_0, '0', soapy_hackrf_sink_0, '0']
+- [prbs_prbs_source_b_0, '0', blocks_int_to_float_0, '0']
 
 metadata:
   file_format: 1
-  grc_version: 3.10.6.0
+  grc_version: 3.10.12.0

@@ -59,7 +59,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1720, 124.0]
+    coordinate: [1656, 196.0]
     rotation: 0
     state: enabled
 - name: corr_max
@@ -71,7 +71,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1720, 36.0]
+    coordinate: [1656, 132.0]
     rotation: 0
     state: enabled
 - name: corr_thresh
@@ -92,7 +92,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1840, 40.0]
+    coordinate: [1760, 128.0]
     rotation: 0
     state: enabled
 - name: data
@@ -193,6 +193,27 @@ blocks:
     bus_source: false
     bus_structure: null
     coordinate: [1248, 140.0]
+    rotation: 0
+    state: enabled
+- name: phase
+  id: variable_qtgui_range
+  parameters:
+    comment: ''
+    gui_hint: ''
+    label: phase
+    min_len: '200'
+    orient: QtCore.Qt.Horizontal
+    rangeType: float
+    start: '0.00'
+    step: '.1'
+    stop: '3.14'
+    value: '0'
+    widget: counter_slider
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1928, 128.0]
     rotation: 0
     state: enabled
 - name: phase_bw
@@ -324,11 +345,11 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1016, 808.0]
+    coordinate: [1048, 808.0]
     rotation: 0
     state: enabled
-- name: blocks_char_to_float_0_0_0
-  id: blocks_char_to_float
+- name: blocks_float_to_int_0
+  id: blocks_float_to_int
   parameters:
     affinity: ''
     alias: ''
@@ -341,7 +362,22 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [960, 920.0]
+    coordinate: [1424, 720.0]
+    rotation: 0
+    state: enabled
+- name: blocks_message_debug_0
+  id: blocks_message_debug
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    en_uvec: 'True'
+    log_level: info
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2096, 672.0]
     rotation: 0
     state: enabled
 - name: blocks_unpack_k_bits_bb_0
@@ -358,42 +394,6 @@ blocks:
     bus_source: false
     bus_structure: null
     coordinate: [864, 808.0]
-    rotation: 0
-    state: enabled
-- name: blocks_unpack_k_bits_bb_0_0
-  id: blocks_unpack_k_bits_bb
-  parameters:
-    affinity: ''
-    alias: ''
-    comment: ''
-    k: '8'
-    maxoutbuf: '0'
-    minoutbuf: '0'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [768, 920.0]
-    rotation: 0
-    state: enabled
-- name: blocks_vector_source_x_0
-  id: blocks_vector_source_x
-  parameters:
-    affinity: ''
-    alias: ''
-    comment: ''
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    repeat: 'True'
-    tags: '[]'
-    type: byte
-    vector: preamble+data
-    vlen: '1'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [496, 900.0]
     rotation: 0
     state: enabled
 - name: digital_constellation_decoder_cb_0
@@ -427,7 +427,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1336, 512.0]
+    coordinate: [1400, 504.0]
     rotation: 0
     state: enabled
 - name: digital_diff_decoder_bb_0
@@ -482,6 +482,24 @@ blocks:
     bus_source: false
     bus_structure: null
     coordinate: [712, 808.0]
+    rotation: 0
+    state: enabled
+- name: digital_probe_mpsk_snr_est_c_0
+  id: digital_probe_mpsk_snr_est_c
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha: '0.001'
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    msg_nsamples: '1000000'
+    type: '2'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1744, 512.0]
     rotation: 0
     state: enabled
 - name: digital_symbol_sync_xx_0
@@ -590,6 +608,25 @@ blocks:
     bus_source: false
     bus_structure: null
     coordinate: [1072, 232.0]
+    rotation: 0
+    state: enabled
+- name: prbs_bert_sink_b_0
+  id: prbs_bert_sink_b
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    g_data_invert: '0'
+    g_meas_per_sec: '2'
+    g_pn_sel: '1'
+    g_samp_rate: samp_rate
+    g_sync_bits: '511'
+    g_total_bits: '10000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1640, 672.0]
     rotation: 0
     state: enabled
 - name: qtgui_const_sink_x_0
@@ -819,7 +856,7 @@ blocks:
     marker8: '-1'
     marker9: '-1'
     name: Demodulated Bitstream
-    nconnections: '2'
+    nconnections: '1'
     size: '100'
     srate: '1'
     stemplot: 'False'
@@ -859,7 +896,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1256, 796.0]
+    coordinate: [1376, 836.0]
     rotation: 0
     state: enabled
 - name: sdrplay3_rsp2_0
@@ -902,22 +939,23 @@ blocks:
 connections:
 - [analog_agc_xx_0, '0', digital_symbol_sync_xx_0, '0']
 - [analog_agc_xx_0, '0', qtgui_freq_sink_x_0, '0']
+- [blocks_char_to_float_0_0, '0', blocks_float_to_int_0, '0']
 - [blocks_char_to_float_0_0, '0', qtgui_time_sink_x_0, '0']
-- [blocks_char_to_float_0_0_0, '0', qtgui_time_sink_x_0, '1']
+- [blocks_float_to_int_0, '0', prbs_bert_sink_b_0, '0']
 - [blocks_unpack_k_bits_bb_0, '0', blocks_char_to_float_0_0, '0']
-- [blocks_unpack_k_bits_bb_0_0, '0', blocks_char_to_float_0_0_0, '0']
-- [blocks_vector_source_x_0, '0', blocks_unpack_k_bits_bb_0_0, '0']
 - [digital_constellation_decoder_cb_0, '0', digital_diff_decoder_bb_0, '0']
 - [digital_costas_loop_cc_0, '0', digital_constellation_decoder_cb_0, '0']
+- [digital_costas_loop_cc_0, '0', digital_probe_mpsk_snr_est_c_0, '0']
 - [digital_costas_loop_cc_0, '0', qtgui_const_sink_x_0, '2']
 - [digital_diff_decoder_bb_0, '0', digital_map_bb_0, '0']
 - [digital_linear_equalizer_0_0, '0', digital_costas_loop_cc_0, '0']
 - [digital_linear_equalizer_0_0, '0', qtgui_const_sink_x_0, '1']
 - [digital_map_bb_0, '0', blocks_unpack_k_bits_bb_0, '0']
+- [digital_probe_mpsk_snr_est_c_0, snr, blocks_message_debug_0, print]
 - [digital_symbol_sync_xx_0, '0', digital_linear_equalizer_0_0, '0']
 - [digital_symbol_sync_xx_0, '0', qtgui_const_sink_x_0, '0']
 - [sdrplay3_rsp2_0, '0', analog_agc_xx_0, '0']
 
 metadata:
   file_format: 1
-  grc_version: 3.10.6.0
+  grc_version: 3.10.12.0
